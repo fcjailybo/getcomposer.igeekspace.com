@@ -7,3 +7,4 @@ web/apidoc
 web/book.pdf
 cache/
 silex.log
+.idea/
