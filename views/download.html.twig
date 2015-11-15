@@ -1,37 +1,41 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
-    <h1>Download Composer</h1>
-    <p>Run this in your terminal to get the latest Composer version:</p>
-    <code>curl -sS https://getcomposer.org/installer | php</code>
-    <p>Or if you don't have curl:</p>
-    <code>php -r "readfile('https://getcomposer.org/installer');" | php</code>
-    <p>This installer script will simply check some php.ini settings, warn you if they are set incorrectly, and then download the latest composer.phar in the current directory</p>
+    <h1>下载Composer</h1>
+    <p>在终端命令行工具中运行下面的命令便能安装最新版本的Composer：</p>
+    <code>curl -sS http://getcomposer.overlooktower.com/installer | php</code>
+    <p>如果您没有安装curl，则可以运行：</p>
+    <code>php -r "readfile('http://getcomposer.overlooktower.com/installer');" | php</code>
+    <p>这个安装脚本程序将会简单的检测php.ini文件的配置，对于配置不正确的项目输出警告信息，然后下载最新版本的composer.phar文件到当前文件夹</p>
 
-    <h2>Installer Options</h2>
+    <h2>安装选项</h2>
 
     <h3>--install-dir</h3>
-    <p>You can install composer to a specific directory by using the <code>--install-dir</code> option and providing a target directory. Options must be appended to <code>--</code> so that PHP ignores them, like <code>-- --install-dir=bin</code>, example:</p>
-    <code>curl -sS https://getcomposer.org/installer | php -- --install-dir=bin</code>
+    <p>您可以通过<code>--install-dir</code>选项来指定composer的安装目录。选项前面必须加<code>--</code>让PHP忽略（类似于字符串中‘\'转义)。</p>
+    <p>例如如果您想将composer安装在“/usr/bin”目录</p>
+    <p>您可以输入:</p>
+    <code>curl -sS http://getcomposer.overlooktower.com/installer | php -- --install-dir=/usr/bin</code>
 
     <h3>--filename</h3>
-    <p>You can specify the filename (default: composer.phar) using the <code>--filename</code> option. example:</p>
-    <code>curl -sS https://getcomposer.org/installer | php -- --filename=composer</code>
+    <p>您可以通过<code>--filename</code> 选项来指定composer安装的文件名(默认: composer.phar)</p>
+    <p>例如如果您想将composer的文件名为composer</p>
+    <p>您可以输入:</p>
+    <code>curl -sS http://getcomposer.overlooktower.com/installer | php -- --filename=composer</code>
 
     <h3>--version</h3>
-    <p>You can install composer to a specific release by using the <code>--version</code> option and providing a target release. example:</p>
-    <code>curl -sS https://getcomposer.org/installer | php -- --version=1.0.0-alpha8</code>
+    <p>您可以通过<code>--version</code> 选项来指定您要安装的composer版本</p>
+    <code>curl -sS http://getcomposer.overlooktower.com/installer | php -- --version=1.0.0-alpha8</code>
 
     {% if windows %}
-        <h2>Windows Installer</h2>
-        <p>The installer will download composer for you and set up your PATH environment variable so you can simply call <code>composer</code> from any directory.</p>
-        <p>Download and run <a href="/Composer-Setup.exe">Composer-Setup.exe</a> - it will install the latest composer version whenever it is executed.</p>
+        <h2>Windows安装包</h2>
+        <p>Windows安装包将会为您自动下载最新版本的composer，然后配置好PATH环境变量，您在任何目录下，只需输入 <code>composer</code> 便可以调用</p>
+        <p>下载并安装<a href="/Composer-Setup.exe">Composer-Setup.exe</a>，它将安装最新版本的composer。</p>
     {% endif %}
 
-    <h2>Manual Download</h2>
-    <p>If you prefer to download the phar manually, here are the available versions:</p>
+    <h2>手动下载</h2>
+    <p>如果您想手动下载composer,下面提供了各个版本的下载地址：</p>
     <p>
-        <a href="{{ app.request.basePath }}/composer.phar">Latest Snapshot</a><br />
+        <a href="{{ app.request.basePath }}/composer.phar">最新版本</a><br />
         {% for version, date in versions %}
             <a href="{{ path('download_version', {version: version}) }}">{{ version }}</a> ({{ date|date('Y-m-d') }})<br />
         {% endfor %}

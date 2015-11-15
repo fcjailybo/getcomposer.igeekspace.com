@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="zh-cn">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-        <title>{% block title %}Composer{% endblock %}</title>
-        <meta name="description" content="Dependency Management for PHP">
+        <title>{% block title %}Composer--尖塔科技{% endblock %}</title>
+        <meta name="description" content="Composer 是 PHP 用来管理依赖（dependency）关系的工具。你可以在自己的项目中声明所依赖的外部工具库（libraries），Composer 会帮你安装这些依赖的库文件。">
         <meta name="viewport" content="width=device-width,initial-scale=1">
 
         <link rel="stylesheet" href="{{ app.request.basePath }}/css/style.css?v=7">
@@ -19,11 +19,11 @@
             <header>
                 {% block header %}
                 {% spaceless %}
-                    <a href="{{ path('home') }}">Home</a>
-                    <a class="{{ page == 'getting-started' ? 'active':'' }}" href="{{ path('docs.view', {page: '00-intro.md'}) }}">Getting Started</a>
-                    <a class="{{ page == 'download' ? 'active':'' }}" href="{{ path('download') }}">Download</a>
-                    <a class="{{ page == 'docs' ? 'active':'' }}" href="{{ path('docs') }}">Documentation</a>
-                    <a class="last" href="http://packagist.org/">Browse Packages</a>
+                    <a href="{{ path('home') }}">首页</a>
+                    <a class="{{ page == 'getting-started' ? 'active':'' }}" href="{{ path('docs.view', {page: '00-intro.md'}) }}">入门</a>
+                    <a class="{{ page == 'download' ? 'active':'' }}" href="{{ path('download') }}">下载</a>
+                    <a class="{{ page == 'docs' ? 'active':'' }}" href="{{ path('docs') }}">文档</a>
+                    <a class="last" href="http://packagist.org/">库列表</a>
                 {% endspaceless %}
                 {% endblock %}
             </header>
@@ -40,11 +40,5 @@
         </div>
 
         <script src="{{ app.request.basePath }}/js/libs/prism.js?v=6"></script>
-        <script>
-            var _gaq=[['_setAccount','UA-26723099-2'],['_trackPageview']];
-            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
-            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-            s.parentNode.insertBefore(g,s)}(document,'script'));
-        </script>
     </body>
 </html>

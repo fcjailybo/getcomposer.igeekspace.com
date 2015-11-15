@@ -7,17 +7,17 @@
     <div class="logo">
         <img src="{{ app.request.basePath }}/img/{{ logo }}">
         <h1 class="slogan">
-            Dependency Manager for PHP
+            Composer 是 PHP 用来管理依赖（dependency）关系的工具。你可以在自己的项目中声明所依赖的外部工具库（libraries），Composer 会帮你安装这些依赖的库文件。
         </h1>
     </div>
 
     <p class="buttons">
-        <a href="{{ path('docs.view', {page: '00-intro.md'}) }}">Getting Started</a>
-        <a href="{{ path('download') }}">Download</a>
+        <a href="{{ path('docs.view', {page: '00-intro.md'}) }}">入门</a>
+        <a href="{{ path('download') }}">下载</a>
     </p>
     <p class="buttons">
-        <a href="{{ path('docs') }}">Documentation</a>
-        <a href="http://packagist.org/">Browse Packages</a>
+        <a href="{{ path('docs') }}">文档</a>
+        <a href="http://packagist.org/">库列表</a>
     </p>
     <p class="buttons">
         <a href="http://github.com/composer/composer/issues">Issues</a>
@@ -26,8 +26,5 @@
 {% endblock %}
 
 {% block footer %}
-    <p>Authors: <a href="http://naderman.de">Nils Adermann</a>, <a href="http://nelm.io/jordi">Jordi Boggiano</a> and many <a href="https://github.com/composer/composer/graphs/contributors">community contributions</a></p>
-    <p>Sponsored by:</p>
-    <p><a href="https://toranproxy.com"><img src="{{ app.request.basePath }}/img/toranproxy.png"></a></p>
-    <p>Logo: <a href="http://wizardcat.com/">WizardCat</a></p>
+    <h2><a href="http://www.overlooktower.com" target="_blank">尖塔科技</a>提供本网站的翻译以及维护服务</h2>
 {% endblock %}
