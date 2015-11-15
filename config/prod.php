@@ -4,6 +4,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
+$env = 'dev';
 if (!isset($env) || $env !== 'dev') {
     // force ssl
     $app->before(function (Request $request) {
