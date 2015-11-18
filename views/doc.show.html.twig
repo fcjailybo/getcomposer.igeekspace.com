@@ -3,15 +3,15 @@
 {% block title %}{% if title is not empty %}{{ title }} - {% endif %}{{ parent() }}{% endblock %}
 
 {% block content %}
-    {% if toc|length %}
+    {#{% if toc|length %}
         <ul class="toc">
             {{ _self.tocTree(toc|length > 3 ? toc : toc.1) }}
         </ul>
-    {% endif %}
+    {% endif %}#}
     {{ doc|raw }}
 
     <p class="fork-and-edit">
-        Found a typo? Something is wrong in this documentation? Just <a href="http://github.com/composer/composer/edit/master/doc/{{ file }}">fork and edit</a> it!
+        发现有错别字吗? 文档有错误吗? 请发送邮件至fcjailybo@163.com!
     </p>
 {% endblock %}
 
