@@ -90,16 +90,17 @@ $app->get('/doc/{page}', function ($page) use ($app) {
     $filename = $app['composer.doc_dir'].'/'.$page;
 
     if (!file_exists($filename)) {
-        $app->abort(404, 'Requested page was not found.');
+        $app->abort(404, '页面不存在。');
     }
 
     $contents = file_get_contents($filename);
+
     $content = $app['markdown']->text($contents);
     $content = str_replace(array('class="language-json', 'class="language-js'), 'class="language-javascript', $content);
     $content = str_replace('class="language-sh', 'class="language-bash', $content);
     $content = str_replace('class="language-ini', 'class="language-clike', $content);
 
-    $dom = new DOMDocument();
+    /*$dom = new DOMDocument();
     $dom->loadHtml($content);
     $xpath = new DOMXPath($dom);
 
@@ -193,14 +194,14 @@ $app->get('/doc/{page}', function ($page) use ($app) {
     $content = preg_replace('{.*<body>(.*)</body>.*}is', '$1', $content);
 
     // add class to footer nav
-    $content = preg_replace('{<p>(&larr;.+?|.+?&rarr;)</p>}', '<p class="prev-next">$1</p>', $content);
+    $content = preg_replace('{<p>(&larr;.+?|.+?&rarr;)</p>}', '<p class="prev-next">$1</p>', $content);*/
 
     return $app['twig']->render('doc.show.html.twig', array(
         'doc' => $content,
         'file' => $page,
         'page' => $page == '00-intro.md' ? 'getting-started' : 'docs',
-        'toc' => $toc,
-        'title' => $firstTitle
+       // 'toc' => $toc,
+        'title' => 'knight'//$firstTitle
     ));
 })
 ->assert('page', '[a-z0-9/\'-]+\.md')
