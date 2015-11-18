@@ -20,7 +20,7 @@ $app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
     return $twig;
 }));
 
-$app['composer.doc_dir'] = __DIR__.'/../vendor/composer/composer/doc';
+$app['composer.doc_dir'] = __DIR__.'/../web/document';
 
 $app['markdown'] = function () {
     return new Parsedown();
