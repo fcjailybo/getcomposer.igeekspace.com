@@ -3,9 +3,9 @@
 {% block content %}
     <h1>下载Composer</h1>
     <p>在终端命令行工具中运行下面的命令便能安装最新版本的Composer：</p>
-    <code>curl -sS http://getcomposer.overlooktower.com/installer | php</code>
+    <code>curl -sS http://getcomposer.igeekspace.com/installer | php</code>
     <p>如果您没有安装curl，则可以运行：</p>
-    <code>php -r "readfile('http://getcomposer.overlooktower.com/installer');" | php</code>
+    <code>php -r "readfile('http://getcomposer.igeekspace.com/installer');" | php</code>
     <p>这个安装脚本程序将会简单的检测php.ini文件的配置，对于配置不正确的项目输出警告信息，然后下载最新版本的composer.phar文件到当前文件夹</p>
 
     <h2>安装选项</h2>
@@ -14,17 +14,17 @@
     <p>您可以通过<code>--install-dir</code>选项来指定composer的安装目录。选项前面必须加<code>--</code>让PHP忽略（类似于字符串中‘\'转义)。</p>
     <p>例如如果您想将composer安装在“/usr/bin”目录</p>
     <p>您可以输入:</p>
-    <code>curl -sS http://getcomposer.overlooktower.com/installer | php -- --install-dir=/usr/bin</code>
+    <code>curl -sS http://getcomposer.igeekspace.com/installer | php -- --install-dir=/usr/bin</code>
 
     <h3>--filename</h3>
     <p>您可以通过<code>--filename</code> 选项来指定composer安装的文件名(默认: composer.phar)</p>
     <p>例如如果您想将composer的文件名为composer</p>
     <p>您可以输入:</p>
-    <code>curl -sS http://getcomposer.overlooktower.com/installer | php -- --filename=composer</code>
+    <code>curl -sS http://getcomposer.igeekspace.com/installer | php -- --filename=composer</code>
 
     <h3>--version</h3>
     <p>您可以通过<code>--version</code> 选项来指定您要安装的composer版本</p>
-    <code>curl -sS http://getcomposer.overlooktower.com/installer | php -- --version=1.0.0-alpha8</code>
+    <code>curl -sS http://getcomposer.igeekspace.com/installer | php -- --version=1.0.0-alpha8</code>
 
     {% if windows %}
         <h2>Windows安装包</h2>
