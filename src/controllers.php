@@ -201,7 +201,7 @@ $app->get('/doc/{page}', function ($page) use ($app) {
         'file' => $page,
         'page' => $page == '00-intro.md' ? 'getting-started' : 'docs',
        // 'toc' => $toc,
-        'title' => 'knight'//$firstTitle
+        'title' => 'Composer'//$firstTitle
     ));
 })
 ->assert('page', '[a-z0-9/\'-]+\.md')
