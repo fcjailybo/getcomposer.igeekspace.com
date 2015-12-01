@@ -35,6 +35,14 @@
 在刚刚例子中，我们依赖的是monolog的 `1.0.*`版本，这意味着可以是`1.0`开发分支的任何版本，可能是`1.0.0`,`1.0.2` 或者`1.0.20`。
 
 版本号有几种不同的标注方式：
+名称           | 例子                                                                     | 描述
+-------------- | ------------------------------------------------------------------------ | -----------
+精确的版本号   | `1.0.2`                                                                  | 您可以给出精确的版本号。
+范围           | `>=1.0` `>=1.0 <2.0` <code>&gt;=1.0 &lt;1.1 &#124;&#124; &gt;=1.2</code> | 通过范围运算符，您可以指定库的有效版本范围。合法的操作符有： `>`, `>=`, `<`, `<=`, `!=`. <br />您可以定义多个范围，每个范围用空格(<code> </code>) 或者逗号(`,`)隔开将会被当做一个逻辑与关系，双竖线(<code>&#124;&#124;</code>)将会被当做逻辑或关系。逻辑与的优先级高于逻辑或.
+连字符范围     | `1.0 - 2.0`                                                              | 包括一系列的版本。连字符的版本右边都默认带了个通配符，例如：`1.0 - 2.0`等于`>=1.0.0 <2.1`因为`2.0` 实际上是`2.0.*`. 另一方面，`1.0.0 - 2.1.0`等于`>=1.0.0 <=2.1.0`。
+通配符         | `1.0.*`                                                                  | 您可以用 `*` 通配符定义一个版本匹配规则. `1.0.*`相当于`>=1.0 <1.1`.
+波浪符：~      | `~1.2`                                                                   | 对于遵循语义化版本规则的项目非常有用，`~1.2`等于`>=1.2 <2.0`。想要详细了解，请阅读下面的章节。
+脱字符：^      | `^1.2.3`                                                                 | 对于遵循语义化版本规则的项目非常有用， `^1.2.3`等于`>=1.2.3 <2.0`.想要详细了解，请阅读下面的章节。
 
 ### 下一个有效发布版Next Significant Release (“~”和“^”操作符)
 
@@ -50,3 +58,99 @@
 >只有`.2`可以改变，`1.`是固定不变的。
 
 > **注意:**  `~`对于直接加主版本号做了特殊处理，比如`~1`等同于`~1.0`因为它不允许提高主版本号的值以保持项目的兼容性。
+
+### 稳定性
+
+默认情况下Composer只考虑库的文档版本，但是如果您想获取您依赖库的RC版、测试版、预览版或者开发版，您可以通过使用[稳定性标记](04-schema.md#package-links)。
+要想将该设置作用于所以的库，您也可以使用[最低稳定性](04-schema.md#minimum-stability)设置。
+
+## 安装依赖库
+
+要想将定义好的依赖库添加到您的项目中，只需要运行`composer.phar`的`install`命令。
+
+```sh
+php composer.phar install
+```
+
+执行上面命令，Composer将会找到符合要求的最新版本的`monolog/monolog`，然后将它下载到`vendor`目录。
+我们通常约定将第三方的代码文件放在一个叫`vendor`的目录下，例如monolog，Composer将会把它放在 `vendor/monolog/monolog`目录下。
+
+> **提示:** 如果您正在使用Git作为版本控制软件，您可以添加`vendor`到`.gitignore`文件，因为您可能并不想将所有的依赖库添加到您的版本仓库中。
+
+`install`做的另外一件事情，就是在您项目的根目录添加了一个`composer.lock`文件。
+
+**记得提交您项目下的`composer.lock`文件(还有`composer.json`文件)到您的版本控制系统**
+
+上面的操作非常重要，因为`install`命令会检测是否存在`composer.lock`文件，如果存在，Composer将会下载`composer.lock`文件中指定版本的库文件（不管`composer.json`文件的内容）。
+这意味着在创建项目时，依赖库的版本就已经确定了。您的持续集成服务器，产品服务器，团队其他开发人员的机器上，每个人运行的都是相同的依赖库，这样将减小因为部署出现bug的可能性。
+即使这个项目只是您一个人开发，那么在几个月后，即使您重装项目，依然能保证您安装的依赖库能正常运行，即使这段时间内，这些依赖库已经发布了许多新版本。
+
+假如检测到没有`composer.lock`文件，Composer将会从`composer.json`文件读取依赖库的相关信息，然后在执行完`update`或者`install`命令后，创建`composer.lock`锁文件。
+
+这意味着，如果您的依赖库发布了新版本，你不能自动获取这些更新，而是需要手动使用`update`命令进行更新。
+`update`将会获取符合`composer.json`要求的最新版本，然后更新`composer.lock`锁文件。
+
+```sh
+php composer.phar update
+```
+> **注意：** 当执行`install`命令时，如果`composer.lock`和`composer.json`里面的内容不同步，Composer将会发出一个警告信息。
+
+如果您只想安装或者更新一个依赖库，您可以把他们加入白名单
+
+```sh
+php composer.phar update monolog/monolog [...]
+```
+
+> **注意：**对于库，不推荐提交锁文件。详见： [库 - 锁文件](02-libraries.md#lock-file).
+
+## 包列表
+
+[Packagist](https://packagist.org/)是Composer的主仓库。Composer仓库就是一个包的源：即您在哪获取这个包。
+ Packagist仓库的目标是成为所有用户的中心库，这意味这您能够 随心所欲的`require`Packagist的任何包。
+
+请访问[packagist网站](https://packagist.org/) (packagist.org)，浏览或者搜索您想要的包。
+
+任何支持Composer的开源项目应该将他们的包发布在packagist上，对于库的开发者来说，一个库虽然说并不是非得支持Composer，但是支持Composer的话能用起来更方便。
+
+## 自动加载
+
+因为库指定了自动加载信息，所以Composer生成一个`vendor/autoload.php`文件。您只需简单的包含这个文件，便能自动加载类了。
+```php
+require 'vendor/autoload.php';
+```
+
+这样能非常方便的使用第三方代码，例如您的项目需要monolog，您可以直接使用它，因为它会自动加载。
+```php
+$log = new Monolog\Logger('name');
+$log->pushHandler(new Monolog\Handler\StreamHandler('app.log', Monolog\Logger::WARNING));
+
+$log->addWarning('Foo');
+```
+
+您甚至可以在 `composer.json`文件中添加一个`autoload`来定义自己的类自动加载器代码。
+
+```json
+{
+    "autoload": {
+        "psr-4": {"Acme\\": "src/"}
+    }
+}
+```
+
+Composer将会为`Acme`注册一个[PSR-4](http://www.php-fig.org/psr/psr-4/)自动加载器。
+
+你可以定义一个命名空间与目录的映射关系，上例中，在您的项目根目录生成一个`src`目录，与`vendor`同级。例如`src/Foo.php`文件将会包含一个`Acme\Foo`类。
+添加完`autoload`字段后，您必须要重新运行一遍`dump-autoload`命令来重新生成`vendor/autoload.php`文件。
+
+包含这个文件将会获得自动加载实例，因此您可以将所有包含文件中的返回值存储在一个变量中，然后可以添加更多的命名空间。这在做测试的时候非常有用。
+
+```php
+$loader = require 'vendor/autoload.php';
+$loader->add('Acme\\Test\\', __DIR__);
+```
+
+除了PSR-4自动加载外, Composer同时支持类映射. 这样就能让不符合PSR-4的类也能够完成自动加载。详情可以阅读[自动加载指引](04-schema.md#autoload)章节。
+
+> **注意:** Composer提供了自己的加载器，如果您不想用它，您只需要include `vendor/composer/autoload_*.php`文件获取关联数组，就可以定义自己的加载器。
+
+&larr; [简介](00-intro.md)  |  [库](02-libraries.md) &rarr;
